@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>배드민턴 경기 ☁️</title>
+<style>
+:root {
+--bg:#f5fbff; --card:#ffffff; --muted:#7a8a9a; --text:#2f3c4a;
+--accent:#7cc7ff; --accent2:#b9e6ff; --danger:#ff6b6b; --warn:#f9c74f;
+--border:#e5f2fb; --chip:#f2f9ff; --shadow:0 10px 24px rgba(124,199,255,0.20);
+}
+*{box-sizing:border-box}
+body{
+margin:0;
+background:
+radial-gradient(circle at 24px 24px, rgba(124,199,255,0.10) 2px, transparent 3px) 0 0/32px 32px,
+var(--bg);
+color:var(--text);
+font-family: ui-rounded, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+}
+header{
+padding:20px 24px; border-bottom:1px dashed var(--border);
+display:flex; align-items:center; gap:14px;
+position:sticky; top:0; background:rgba(245,251,255,.9);
+backdrop-filter:saturate(140%) blur(8px); z-index:10;
+}
+header h1{ font-size:22px; margin:0; display:flex; align-items:center; gap:8px }
+header h1::before{ content:"☁️"; }
+header .meta{ font-size:14px; color:var(--muted) }
+header .actions button{ margin-left:8px }
+.tabs{
+display:flex; gap:10px; padding:14px 24px;
+border-bottom:1px dashed var(--border);
+background:transparent; position:sticky; top:68px; z-index:9;
+}
+.tabbtn{
+cursor:pointer; padding:10px 16px; border-radius:999px;
+border:1px solid var(--border);
+background:#fff; color:#5b6a78; font-size:15px;
+box-shadow:0 4px 0 rgba(0,0,0,0.03);
+transition:transform .16s ease, box-shadow .2s ease, background .2s ease, color .2s ease, border-color .2s ease;
+position:relative; overflow:hidden;
+}
+.tabbtn:hover{ transform:translateY(-1px); box-shadow:0 6px 12px rgba(124,199,255,0.18); }
+.tabbtn:active{ transform:translateY(0); }
+.tabbtn.active{
+background:linear-gradient(180deg, #e8f6ff, #d8f0ff);
+color:#1. e5d86; border-color:#c6e8ff;
+}
+.tabbtn.active::after{
+content:""; position:absolute; left:16px; right:16px; bottom:-7px; height:6px;
+background:linear-gradient(90deg,#9bd6ff,#7cc7ff,#b9e6ff);
+border-radius:999px; filter:blur(6px); opacity:.7;
+}
+main{ padding:24px; max-width:1100px; margin:0 auto; display:grid; gap:20px }
+.card{
+background:var(--card); border:2px solid var(--border); border-radius:18px;
+padding:18px; box-shadow:var(--shadow);
+}
+.card h2{ margin:0 0 12px; font-size:20px; display:flex; align-items:center; gap:8px }
+.row{display:flex; gap:10px; flex-wrap:wrap}
+input,select,button{
+border-radius:14px; border:1px solid var(--border);
+background:#fff; color:#2f3c4a; padding:12px 14px; font-size:16px;
+transition:border-color .15s, box-shadow .15s, transform .12s, background-color .15s, color .15s;
+}
+input::placeholder{ color:#a6b5c4 }
+input:focus,select:focus{
+outline:none; border-color:#bfe6ff; box-shadow:0 0 0 4px rgba(124,199,255,0.20);
+}
+button{ cursor:pointer }
+button.primary{
+background:linear-gradient(180deg, var(--accent), #54b7ff); border:0; color:#083b55;
+box-shadow:0 6px 0 rgba(84,183,255,0.35);
+}
+button.secondary{ background:#f5fbff; color:#4b5b68 }
+button.success{ background:linear-gradient(180deg,#a7f0d2,#6fd3a0); border:0; color:#155a41 }
+button.warn{ background:linear-gradient(180deg,#ffe39a,#f9c74f); border:0; color:#5d4800 }
+button.danger{ background:linear-gradient(180deg,#ff9fa1,#ff6b6b); border:0; color:#5b0d0d }
+button:hover{ transform:translateY(-1px) }
+button:active{ transform:translateY(0) }
+button:focus-visible{ outline:none; box-shadow:0 0 0 4px rgba(124,199,255,0.25) }
+@keyframes pulse { 0%{transform:translateY(-1px) scale(1)} 50%{transform:translateY(-1px) scale(1.015)} 100%{transform:translateY(-1px) scale(1)} }
+.tabbtn.active{ animation:pulse 1.2s ease-in-out infinite }
+ul{list-style:none; padding:0; margin:0}
+.list-item{
+display:flex; align-items:center; justify-content:space-between;
+padding:12px; border:1px dashed var(--border); border-radius:14px; margin-bottom:10px; background:#fff;
+}
+.muted{ color:#7a8a9a; font-size:14px }
+.badge{
+font-size:13px; color:#0e588a; background:#e8f6ff; border:1px solid #cdecff;
+border-radius:999px; padding:6px 10px; margin-left:8px;
+}
+.pill{
+font-size:13px; color:#6a4b00; background:#fff1cf; border:1px solid #ffdfa1;
+border-radius:999px; padding:6px 10px; margin-left:8px;
+}
+.table{ width:100%; border-collapse:collapse; font-size:16px; background:#fff; border-radius:14px; overflow:hidden }
+.table th,.table td{ border:1px solid var(--border); padding:10px; text-align:left }
+.table th{ background:#ecf8ff; color:#0e588a }
+.section-actions{ display:flex; gap:10px; flex-wrap:wrap; margin-top:12px }
+.divider{
+height:10px;
+background:repeating-linear-gradient(90deg, #b9e6ff 0 14px, transparent 14px 28px);
+opacity:.45; border-radius:999px; margin:14px 0
+}
+.stat .chip{ background:#f0f9ff; border:1px solid #cdecff }
+.empty{
+color:#7f93a6; font-size:15px; border:1px dashed var(--border);
+border-radius:12px; padding:14px; text-align:center; background:#fff
+}
+.timer{
+font-size:14px; color:#0e588a; background:#e8f6ff; border:1px solid #cdecff;
+border-radius:999px; padding:6px 10px; margin-left:8px
+}
+.chip{
+display:inline-flex; align-items:center; gap:8px; background:var(--chip);
+border:1px dashed var(--border); border-radius:999px; padding:8px 12px; font-size:14px; margin:6px 8px 0 0
+}
+.chip::before{ content:"🌤️"; margin-right:4px }
+.chip button{ border:0; background:transparent; color:#ff7070; cursor:pointer; padding:0 2px; font-size:16px }
+.sub{ font-size:14px; color:#7a8a9a }
+.label{ font-size:14px; color:#7a8a9a; margin-right:6px }
+.hidden{ display:none }
+</style>
+</head>
+<body>
+<header>
+<h1>배드민턴 경기</h1>
+<div class="meta" id="scheduleMeta"></div>
+<div class="actions" style="margin-left:auto;display:flex;gap:10px">
+<button class="secondary" id="resetDataBtn">초기화</button>
+<button class="primary" id="saveBtn">저장</button>
+</div>
+</header>
+<div class="tabs">
+<button class="tabbtn active" id="tabBasic">기본/멤버</button>
+<button class="tabbtn" id="tabMatch">배정/기록</button>
+</div>
+<main>
+<div id="tab1" class="">
+<section class="card">
+<h2>기본 정보 🌤️</h2>
+<div class="row">
+<div style="flex:1;min-width:220px">
+<label class="muted">일정 제목</label>
+<input id="titleInput" placeholder="예: 화목 저녁 자유복식"/>
+</div>
+<div style="width:160px">
+<label class="muted">날짜</label>
+<input id="dateInput" type="date"/>
+</div>
+<div style="width:140px">
+<label class="muted">시간</label>
+<input id="timeInput" type="time"/>
+</div>
+<div style="flex:1;min-width:220px">
+<label class="muted">장소</label>
+<input id="placeInput" placeholder="예: OO체육관 3코트"/>
+</div>
+<div style="width:140px">
+<label class="muted">코트 수</label>
+<input id="courtInput" type="number" min="1" value="3"/>
+</div>
+<div style="width:160px">
+<label class="muted">팀 인원</label>
+<select id="teamSizeSelect">
+<option value="2" selected>복식(2)</option>
+<option value="1">단식(1)</option>
+</select>
+</div>
+</div>
+<div class="divider"></div>
+<div class="stat" id="quickStats"></div>
+</section>
+<section class="card" id="memberSection">
+<h2>멤버 추가 🐣</h2>
+<div class="row">
+<input id="memberNameInput" placeholder="이름"/>
+<select id="memberGenderSelect">
+<option value="남">남</option>
+<option value="여">여</option>
+</select>
+<select id="memberLevelSelect">
+<option value="A">A</option>
+<option value="B">B</option>
+<option value="C" selected>C</option>
+<option value="D">D</option>
+<option value="E">E</option>
+</select>
+<button class="success" id="addMemberBtn">추가</button>
+</div>
+<div class="section-actions">
+<button class="secondary" id="shuffleMembersBtn">랜덤 셔플</button>
+<button class="warn" id="balanceToggleBtn">밸런스 배정 ON</button>
+</div>
+<div class="divider"></div>
+<ul id="memberList"></ul>
+</section> </div>
+<div id="tab2" class="hidden">
+<section class="card" id="assignmentSection">
+<h2>게임 배정 (무제한 매치) 🎾</h2>
+<div class="row" style="align-items:flex-end">
+<div>
+<div class="label">코트 번호</div>
+<input id="courtNumberInput" type="number" min="1" value="1" placeholder="코트"/>
+</div>
+<div>
+<div class="label">멤버 선택</div>
+<select id="singleMemberSelect" style="min-width:220px"></select>
+</div>
+<div class="row" style="gap:10px;align-items:flex-end">
+<div>
+<button class="secondary" id="addToATeamBtn">팀 A에 추가</button>
+</div>
+<div>
+<button class="secondary" id="addToBTeamBtn">팀 B에 추가</button>
+</div>
+</div>
+<div>
+<button class="primary" id="addMatchBtn">매치 추가</button>
+</div>
+<div>
+<button class="secondary" id="clearSelectionsBtn">선택 초기화</button>
+</div>
+<div>
+<button class="secondary" id="clearAssignmentsBtn">배정 전체 초기화</button>
+</div>
+</div>
+<div class="divider"></div>
+<div class="row">
+<div style="flex:1">
+<div class="muted">팀 A</div>
+<div id="teamAChips"></div>
+</div>
+<div style="flex:1">
+<div class="muted">팀 B</div>
+<div id="teamBChips"></div>
+</div>
+</div>
+<div class="divider"></div>
+<div id="assignmentsContainer"></div>
+</section>
+<section class="card" id="recordSection">
+<h2>기록 입력/관리 📘</h2>
+<div class="row" style="align-items:flex-end">
+<div>
+<div class="label">매치 선택</div>
+<select id="gameSelect"></select>
+</div>
+<div>
+<div class="label">스코어 입력</div>
+<input id="scoreInput" placeholder="점수 예: 21-18"/>
+</div>
+<div>
+<div class="label">승자 선택</div>
+<select id="winnerSelect" disabled>
+<option value="">승자 선택</option>
+</select>
+</div>
+<div>
+<button class="success" id="saveRecordBtn">기록 저장/수정</button>
+</div>
+<div>
+<button class="secondary" id="deleteRecordBtn">기록 삭제</button>
+</div>
+</div>
+<div class="section-actions">
+<button class="secondary" id="exportCsvBtn">CSV 내보내기</button>
+<button class="secondary" id="resetRecordsBtn">기록 전체 초기화</button>
+</div>
+<div class="divider"></div>
+<table class="table" id="recordsTable">
+<thead>
+<tr>
+<th>매치</th>
+<th>코트</th>
+<th>팀 A</th>
+<th>팀 B</th>
+<th>스코어</th>
+<th>승자</th>
+<th>기록시간</th>
+</tr>
+</thead>
+<tbody></tbody>
+</table>
+<div class="divider"></div>
+<h2 style="margin-top:0">개인 전적</h2>
+<table class="table" id="memberStatsTable">
+<thead>
+<tr>
+<th>이름</th>
+<th>성별</th>
+<th>레벨</th>
+<th>매치 수</th>
+<th>승</th>
+<th>패</th>
+</tr>
+</thead>
+<tbody></tbody>
+</table>
+</section> </div>
+</main>
+<script>
+(function(){
+const safeStore = (()=> {
+let ok = true;
+try {
+const k = '__test__' + Math.random();
+window.localStorage.setItem(k,'1');
+window.localStorage.removeItem(k);
+} catch(e){ ok = false; }
+const mem = new Map();
+return {
+getItem(key){ return ok ? window.localStorage.getItem(key) : (mem.has(key)?mem.get(key):null); },
+setItem(key,val){ try{ ok ? window.localStorage.setItem(key,val) : mem.set(key,val); } catch(e){ mem.set(key,val); } },
+removeItem(key){ try{ ok ? window.localStorage.removeItem(key) : mem.delete(key); } catch(e){ mem.delete(key); } },
+ok
+};
+})();
+const qsId = new URLSearchParams(location.search).get('id') || 'local-demo';
+const storeKey = 'schedule_' + qsId;
+const state = {
+schedule: { id: qsId, title: '', date: '', time: '', place: '', courts: 3, teamSize: 2, balanceOn: true },
+members: [],
+assignments: [],
+records: []
+};
+let tempTeamA = [];
+let tempTeamB = [];
+let matchSeq = 1;
+const uid = () => Math.random().toString(36).slice(2,10);
+const fmtTeam = (ids) => ids.map(id => state.members.find(m=>m.id===id)?.name || '???').join(', ');
+const save = () => safeStore.setItem(storeKey, JSON.stringify(state));
+const load = () => {
+const raw = safeStore.getItem(storeKey);
+if (!raw) return;
+try {
+const s = JSON.parse(raw);
+Object.assign(state.schedule, s.schedule||{});
+state.members = s.members||[];
+state.assignments = (s.assignments||[]).map(a=>{
+a.timer = a.timer || {running:false, startTs:null, elapsedMs:0};
+return a;
+});
+state.records = s.records||[];
+matchSeq = (s.assignments||[]).reduce((mx,a)=>Math.max(mx, a.id||0), 0) + 1;
+} catch(e){}
+};
+const fmtTime = (ms)=> {
+const t = Math.max(0, Math.floor(ms/1000));
+const m = String(Math.floor(t/60)).padStart(2,'0');
+const s = String(t%60).padStart(2,'0');
+return `${m}:${s}`;
+};
+const parseScore = (txt)=>{
+const m = String(txt||'').match(/^\s*(\d+)\s*[-:]\s*(\d+)\s*$/);
+if (!m) return null;
+return {a:parseInt(m[1],10), b:parseInt(m[2],10)};
+};
+const recordCountFor = (memberId)=>{
+return state.records.filter(rc=> (rc.teamA||[]).includes(memberId) || (rc.teamB||[]).includes(memberId)).length;
+};
+const el = (id)=>document.getElementById(id);
+const scheduleMeta = el('scheduleMeta');
+const titleInput = el('titleInput');
+const dateInput = el('dateInput');
+const timeInput = el('timeInput');
+const placeInput = el('placeInput');
+const courtInput = el('courtInput');
+const teamSizeSelect = el('teamSizeSelect');
+const quickStats = el('quickStats');
+const balanceToggleBtn = el('balanceToggleBtn');
+const memberNameInput = el('memberNameInput');
+const memberGenderSelect = el('memberGenderSelect');
+const memberLevelSelect = el('memberLevelSelect');
+const addMemberBtn = el('addMemberBtn');
+const shuffleMembersBtn = el('shuffleMembersBtn');
+const memberList = el('memberList');
+const courtNumberInput = el('courtNumberInput');
+const singleMemberSelect = el('singleMemberSelect');
+const addToATeamBtn = el('addToATeamBtn');
+const addToBTeamBtn = el('addToBTeamBtn');
+const addMatchBtn = el('addMatchBtn');
+const clearSelectionsBtn = el('clearSelectionsBtn');
+const clearAssignmentsBtn = el('clearAssignmentsBtn');
+const teamAChips = el('teamAChips');
+const teamBChips = el('teamBChips');
+const assignmentsContainer = el('assignmentsContainer');
+const gameSelect = el('gameSelect');
+const scoreInput = el('scoreInput');
+const winnerSelect = el('winnerSelect');
+const saveRecordBtn = el('saveRecordBtn');
+const deleteRecordBtn = el('deleteRecordBtn');
+const recordsTableBody = document.querySelector('#recordsTable tbody');
+const memberStatsBody = document.querySelector('#memberStatsTable tbody');
+const saveBtn = el('saveBtn');
+const resetDataBtn = el('resetDataBtn');
+const exportCsvBtn = el('exportCsvBtn');
+const resetRecordsBtn = el('resetRecordsBtn');
+const tabBasic = el('tabBasic');
+const tabMatch = el('tabMatch');
+const tab1 = el('tab1');
+const tab2 = el('tab2');
+function setActiveTab(t){
+if (t===1){
+tab1.classList.remove('hidden');
+tab2.classList.add('hidden');
+tabBasic.classList.add('active');
+tabMatch.classList.remove('active');
+safeStore.setItem('activeTab_'+qsId, '1');
+} else {
+tab2.classList.remove('hidden');
+tab1.classList.add('hidden');
+tabMatch.classList.add('active');
+tabBasic.classList.remove('active');
+safeStore.setItem('activeTab_'+qsId, '2');
+}
+}
+tabBasic.addEventListener('click', ()=> setActiveTab(1));
+tabMatch.addEventListener('click', ()=> setActiveTab(2));
+function renderMeta(){
+const storageHint = safeStore.ok ? 'localStorage' : '메모리(일시적)';
+scheduleMeta.textContent = `ID ${qsId} · 데이터는 브라우저에 저장됨 (${storageHint})`;
+}
+function renderScheduleInputs(){
+titleInput.value = state.schedule.title || '';
+dateInput.value = state.schedule.date || '';
+timeInput.value = state.schedule.time || '';
+placeInput.value = state.schedule.place || '';
+courtInput.value = state.schedule.courts;
+teamSizeSelect.value = String(state.schedule.teamSize);
+balanceToggleBtn.textContent = `밸런스 배정 ${state.schedule.balanceOn ? 'ON' : 'OFF'}`;
+const stats = [
+`멤버 ${state.members.length}명`,
+`매치 ${state.assignments.length}개`,
+`기록 ${state.records.length}건`
+];
+quickStats.innerHTML = stats.map(s => `<span class="chip">${s}</span>`).join('');
+}
+function renderMemberSelect(){
+const options = ['<option value="" disabled selected>멤버를 선택하세요</option>']
+.concat(state.members.map(m=>`<option value="${m.id}">${m.name} (${m.gender}/${m.level})</option>`))
+.join('');
+singleMemberSelect.innerHTML = options;
+}
+function renderTempTeams(){
+const makeChips = (ids, target) => {
+target.innerHTML = ids.map(id=>{
+const m = state.members.find(x=>x.id===id);
+const label = m ? `${m.name} (${m.gender}/${m.level})` : id;
+return `<span class="chip">${label}<button data-id="${id}" title="제거">✕</button></span>`;
+}).join('');
+target.querySelectorAll('button').forEach(btn=>{
+btn.addEventListener('click', ()=>{
+const id = btn.getAttribute('data-id');
+if (target===teamAChips) tempTeamA = tempTeamA.filter(x=>x!==id);
+else tempTeamB = tempTeamB.filter(x=>x!==id);
+renderTempTeams();
+});
+});
+};
+makeChips(tempTeamA, teamAChips);
+makeChips(tempTeamB, teamBChips);
+}
+function renderMembers(){
+if (!state.members.length){
+memberList.innerHTML = `<div class="empty">멤버가 없습니다.</div>`;
+renderMemberSelect();
+return;
+}
+memberList.innerHTML = '';
+state.members.forEach(m=>{
+const li = document.createElement('li');
+li.className = 'list-item';
+li.innerHTML = `
+<div>
+<strong>${m.name}</strong>
+<span class="badge">${m.gender}</span>
+<span class="badge">레벨 ${m.level}</span>
+</div>
+<div class="row" style="gap:8px">
+<button class="secondary" data-act="up" data-id="${m.id}">위</button>
+<button class="secondary" data-act="down" data-id="${m.id}">아래</button>
+<button class="secondary" data-act="edit" data-id="${m.id}">수정</button>
+<button class="danger" data-act="del" data-id="${m.id}">삭제</button>
+</div>
+`;
+memberList.appendChild(li);
+});
+memberList.querySelectorAll('button').forEach(btn=>{
+btn.addEventListener('click', ()=>{
+const id = btn.getAttribute('data-id');
+const act = btn.getAttribute('data-act');
+const idx = state.members.findIndex(m=>m.id===id);
+if (idx<0) return;
+if (act==='del'){
+state.members.splice(idx,1);
+tempTeamA = tempTeamA.filter(x=>x!==id);
+tempTeamB = tempTeamB.filter(x=>x!==id);
+} else if (act==='edit'){
+const name = prompt('이름 수정', state.members[idx].name);
+if (name) state.members[idx].name = name;
+const gender = prompt('성별(남/여)', state.members[idx].gender);
+if (gender) state.members[idx].gender = gender;
+const level = prompt('레벨(A/B/C/D/E)', state.members[idx].level);
+if (level) state.members[idx].level = level.toUpperCase();
+} else if (act==='up'){
+if (idx>0){ const t = state.members[idx-1]; state.members[idx-1]=state.members[idx]; state.members[idx]=t; }
+} else if (act==='down'){
+if (idx<state.members.length-1){ const t = state.members[idx+1]; state.members[idx+1]=state.members[idx]; state.members[idx]=t; }
+}
+renderAll();
+});
+});
+renderMemberSelect();
+}
+function renderAssignments(){
+const list = state.assignments.slice().sort((a,b)=> a.id-b.id);
+if (!list.length){
+assignmentsContainer.innerHTML = `<div class="empty">매치가 없습니다.</div>`;
+renderGameOptions();
+return;
+}
+assignmentsContainer.innerHTML = '';
+list.forEach(a=>{
+const key = a.id;
+const row = document.createElement('div');
+row.className = 'list-item';
+const teamAName = fmtTeam(a.teamA);
+const teamBName = fmtTeam(a.teamB);
+const record = state.records.find(rc => rc.id===a.id);
+const elapsed = a.timer?.elapsedMs || 0;
+row.innerHTML = `
+<div>
+<strong>매치 #${a.id} · 코트 ${a.court}</strong>
+<div class="muted">${teamAName} vs ${teamBName}</div>
+<div class="timer" id="timer-${key}">경과시간 ${fmtTime(elapsed)}</div>
+${record ? `<div class="badge">스코어 ${record.score || '-'}</div><div class="badge">승자 ${record.winner || '-'}</div>` : ''}
+</div>
+<div class="row" style="gap:8px">
+<button class="success" data-act="start" data-key="${key}">게임 시작</button>
+<button class="warn" data-act="stop" data-key="${key}">게임 종료</button>
+<button class="secondary" data-act="edit" data-key="${key}">팀 수정</button>
+<button class="danger" data-act="remove" data-key="${key}">삭제</button>
+</div>
+`;
+assignmentsContainer.appendChild(row);
+});
+assignmentsContainer.querySelectorAll('button').forEach(btn=>{
+btn.addEventListener('click',()=>{
+const key = parseInt(btn.getAttribute('data-key'),10);
+const idx = state.assignments.findIndex(a=>a.id===key);
+if (idx<0) return;
+const act = btn.getAttribute('data-act');
+const a = state.assignments[idx];
+a.timer = a.timer || {running:false, startTs:null, elapsedMs:0};
+if (act==='start'){
+if (!a.timer.running){
+a.timer.running = true;
+a.timer.startTs = Date.now();
+save();
+}
+} else if (act==='stop'){
+if (a.timer.running){
+const now = Date.now();
+a.timer.elapsedMs = (a.timer.elapsedMs||0) + (now - (a.timer.startTs||now));
+a.timer.running = false;
+a.timer.startTs = null;
+const ridx = state.records.findIndex(rc=>rc.id===a.id);
+const record = {
+id: a.id, court: a.court,
+teamA: [...a.teamA], teamB: [...a.teamB],
+score: ridx>=0 ? state.records[ridx].score || '' : '',
+winner: ridx>=0 ? state.records[ridx].winner || '' : '',
+ts: Date.now()
+};
+if (ridx>=0) state.records[ridx]=record; else state.records.push(record);
+save();
+}
+} else if (act==='edit'){
+const allNames = state.members.map(m=>m.name).join(', ');
+const teamAInput = prompt(`팀 A 멤버 이름 콤마로 입력\n현재: ${fmtTeam(a.teamA)}\n전체: ${allNames}`);
+const teamBInput = prompt(`팀 B 멤버 이름 콤마로 입력\n현재: ${fmtTeam(a.teamB)}\n전체: ${allNames}`);
+const nameToId = (name)=> state.members.find(m=>m.name.trim()===name.trim())?.id;
+if (teamAInput){
+const ids = teamAInput.split(',').map(s=>nameToId(s)).filter(Boolean);
+if (ids.length) a.teamA = ids;
+}
+if (teamBInput){
+const ids = teamBInput.split(',').map(s=>nameToId(s)).filter(Boolean);
+if (ids.length) a.teamB = ids;
+}
+save();
+} else if (act==='remove'){
+state.assignments.splice(idx,1);
+save();
+}
+renderAssignments();
+renderGameOptions();
+renderMembers();
+renderRecords();
+renderMemberStats();
+});
+});
+renderGameOptions();
+}
+function renderGameOptions(){
+const map = new Map();
+state.assignments.forEach(a=>{
+map.set(a.id, {id:a.id, court:a.court, teamA:a.teamA, teamB:a.teamB, from:'assign'});
+});
+state.records.forEach(rc=>{
+if (!map.has(rc.id)){
+map.set(rc.id, {id:rc.id, court:rc.court, teamA:rc.teamA, teamB:rc.teamB, from:'record'});
+}
+});
+const list = Array.from(map.values()).sort((a,b)=>a.id-b.id);
+const options = list.map(it=>{
+const label = `#${it.id} · C${it.court}: ${fmtTeam(it.teamA)} vs ${fmtTeam(it.teamB)}`;
+return `<option value="${it.id}">${label}</option>`;
+}).join('');
+gameSelect.innerHTML = options;
+updateWinnerOptions(parseInt(gameSelect.value||'0',10));
+}
+function updateWinnerOptions(matchId){
+const a = state.assignments.find(x=>x.id===matchId);
+const rec = state.records.find(rc=>rc.id===matchId);
+winnerSelect.innerHTML = '<option value="">승자 선택</option>';
+if (!a && !rec){
+winnerSelect.disabled = true;
+scoreInput.value = '';
+return;
+}
+let teamAIds = a ? a.teamA : (rec ? rec.teamA : []);
+let teamBIds = a ? a.teamB : (rec ? rec.teamB : []);
+const labelA = fmtTeam(teamAIds);
+const labelB = fmtTeam(teamBIds);
+winnerSelect.innerHTML += `<option value="A">${labelA}</option><option value="B">${labelB}</option>`;
+winnerSelect.disabled = false;
+if (rec){
+scoreInput.value = rec.score || '';
+if (rec.winner === labelA) winnerSelect.value = 'A';
+else if (rec.winner === labelB) winnerSelect.value = 'B';
+else winnerSelect.value = '';
+} else {
+scoreInput.value = '';
+winnerSelect.value = '';
+}
+}
+function renderRecords(){
+const tbody = recordsTableBody;
+tbody.innerHTML = '';
+if (!state.records.length){
+const tr = document.createElement('tr');
+tr.innerHTML = `<td colspan="7" class="empty">기록이 없습니다.</td>`;
+tbody.appendChild(tr);
+return;
+}
+state.records.sort((a,b)=> a.id-b.id).forEach(rc=>{
+const tr = document.createElement('tr');
+tr.innerHTML = `
+<td>#${rc.id}</td>
+<td>${rc.court}</td>
+<td>${fmtTeam(rc.teamA)}</td>
+<td>${fmtTeam(rc.teamB)}</td>
+<td>${rc.score || '-'}</td>
+<td>${rc.winner || '-'}</td>
+<td>${new Date(rc.ts).toLocaleString()}</td>
+`;
+tbody.appendChild(tr);
+});
+}
+function renderMemberStats(){
+memberStatsBody.innerHTML = '';
+if (!state.members.length){
+const tr = document.createElement('tr');
+tr.innerHTML = `<td colspan="6" class="empty">멤버가 없습니다.</td>`;
+memberStatsBody.appendChild(tr);
+return;
+}
+state.members.forEach(m=>{
+const tr = document.createElement('tr');
+const matches = recordCountFor(m.id);
+tr.innerHTML = `
+<td>${m.name}</td>
+<td>${m.gender}</td>
+<td>${m.level}</td>
+<td>${matches}</td>
+<td>${m.win||0}</td>
+<td>${m.lose||0}</td>
+`;
+memberStatsBody.appendChild(tr);
+});
+}
+function renderAll(){
+renderMeta();
+renderScheduleInputs();
+renderMembers();
+renderTempTeams();
+renderAssignments();
+renderRecords();
+renderMemberStats();
+save();
+}
+setInterval(()=>{
+state.assignments.forEach(a=>{
+const el = document.getElementById(`timer-${a.id}`);
+if (!el || !a.timer) return;
+const ms = (a.timer.elapsedMs||0) + (a.timer.running ? (Date.now() - (a.timer.startTs||Date.now())) : 0);
+el.textContent = `경과시간 ${fmtTime(ms)}`;
+});
+}, 500);
+function addMember(){
+const name = memberNameInput.value.trim();
+const gender = memberGenderSelect.value;
+const level = memberLevelSelect.value;
+if (!name) return alert('이름을 입력하세요.');
+if (state.members.some(m=>m.name===name)) return alert('이미 존재하는 이름입니다.');
+state.members.push({id:uid(), name, gender, level, win:0, lose:0});
+memberNameInput.value = '';
+renderAll();
+}
+function shuffleMembers(){
+for (let i=state.members.length-1;i>0;i--){
+const j = Math.floor(Math.random()*(i+1));
+const t = state.members[i]; state.members[i]=state.members[j]; state.members[j]=t;
+}
+renderAll();
+}
+function addToTeam(target){
+const id = singleMemberSelect.value;
+if (!id) return;
+const teamSize = parseInt(teamSizeSelect.value,10);
+if (tempTeamA.includes(id) || tempTeamB.includes(id)) return alert('이미 선택된 멤버입니다.');
+if (target==='A'){
+if (tempTeamA.length>=teamSize) return alert(`팀 A는 최대 ${teamSize}명입니다.`);
+tempTeamA.push(id);
+} else {
+if (tempTeamB.length>=teamSize) return alert(`팀 B는 최대 ${teamSize}명입니다.`);
+tempTeamB.push(id);
+}
+renderTempTeams();
+}
+function clearSelections(){
+tempTeamA = [];
+tempTeamB = [];
+renderTempTeams();
+}
+function addMatch(){
+const court = parseInt(courtNumberInput.value,10);
+const teamSize = parseInt(teamSizeSelect.value,10);
+if (!court) return alert('코트를 입력하세요.');
+if (tempTeamA.length !== teamSize) return alert(`팀 A는 정확히 ${teamSize}명이어야 합니다.`);
+if (tempTeamB.length !== teamSize) return alert(`팀 B는 정확히 ${teamSize}명이어야 합니다.`);
+if (tempTeamA.some(id=>tempTeamB.includes(id))) return alert('같은 사람이 양팀에 들어갈 수 없습니다.');
+const id = matchSeq++;
+state.assignments.push({id, court, teamA:[...tempTeamA], teamB:[...tempTeamB], timer:{running:false, startTs:null, elapsedMs:0}});
+clearSelections();
+renderAssignments();
+renderGameOptions();
+renderMembers();
+renderRecords();
+renderMemberStats();
+save();
+}
+function clearAssignments(){
+state.assignments = [];
+renderAssignments();
+renderRecords();
+renderGameOptions();
+renderMembers();
+renderMemberStats();
+save();
+}
+function applyStats(ids, win){
+ids.forEach(pid=>{
+const m = state.members.find(x=>x.id===pid);
+if (!m) return;
+if (win) m.win = (m.win||0)+1; else m.lose = (m.lose||0)+1;
+});
+}
+function rollbackStats(ids, win){
+ids.forEach(pid=>{
+const m = state.members.find(x=>x.id===pid);
+if (!m) return;
+if (win) m.win = Math.max(0,(m.win||0)-1); else m.lose = Math.max(0,(m.lose||0)-1);
+});
+}
+function saveRecord(){
+const selKey = gameSelect.value;
+if (!selKey) return alert('매치를 선택하세요.');
+const id = parseInt(selKey,10);
+const a = state.assignments.find(x=>x.id===id);
+const scoreTxt = scoreInput.value.trim();
+const parsed = scoreTxt ? parseScore(scoreTxt) : null;
+const winnerSel = winnerSelect.value; // 'A' | 'B' | ''
+let teamAIds = a ? a.teamA : (state.records.find(rc=>rc.id===id)?.teamA || []);
+let teamBIds = a ? a.teamB : (state.records.find(rc=>rc.id===id)?.teamB || []);
+const labelA = fmtTeam(teamAIds);
+const labelB = fmtTeam(teamBIds);
+const ridx = state.records.findIndex(rc=>rc.id===id);
+const prevRec = ridx>=0 ? state.records[ridx] : null;
+// rollback previous stats if winner changed
+if (prevRec && prevRec.winner){
+const prevIsA = prevRec.winner === labelA;
+rollbackStats(teamAIds, prevIsA);
+rollbackStats(teamBIds, !prevIsA);
+}
+let winnerLabel = '';
+if (winnerSel==='A') winnerLabel = labelA;
+else if (winnerSel==='B') winnerLabel = labelB;
+const nowRec = {
+id,
+court: a ? a.court : (prevRec ? prevRec.court : 1),
+teamA: [...teamAIds],
+teamB: [...teamBIds],
+score: parsed ? `${parsed.a}-${parsed.b}` : (scoreTxt || (prevRec ? prevRec.score || '' : '')),
+winner: winnerLabel || '',
+ts: Date.now()
+};
+// apply new stats
+if (winnerLabel){
+const isA = winnerLabel === labelA;
+applyStats(teamAIds, isA);
+applyStats(teamBIds, !isA);
+}
+if (ridx>=0) state.records[ridx]=nowRec; else state.records.push(nowRec);
+renderAssignments();
+renderRecords();
+renderMembers();
+renderMemberStats();
+save();
+}
+function deleteRecord(){
+const selKey = gameSelect.value;
+if (!selKey) return alert('매치를 선택하세요.');
+const id = parseInt(selKey,10);
+const idx = state.records.findIndex(rc=>rc.id===id);
+if (idx<0) return;
+const rec = state.records[idx];
+if (rec && rec.winner){
+const labelA = fmtTeam(rec.teamA);
+const isA = rec.winner === labelA;
+rollbackStats(rec.teamA, isA);
+rollbackStats(rec.teamB, !isA);
+}
+state.records.splice(idx,1);
+renderAssignments();
+renderRecords();
+renderMembers();
+renderMemberStats();
+save();
+}
+[titleInput,dateInput,timeInput,placeInput,courtInput,teamSizeSelect].forEach(inp=>{
+inp.addEventListener('change', ()=>{
+state.schedule.title = titleInput.value.trim();
+state.schedule.date = dateInput.value;
+state.schedule.time = timeInput.value;
+state.schedule.place = placeInput.value.trim();
+state.schedule.courts = parseInt(courtInput.value,10)||1;
+state.schedule.teamSize = parseInt(teamSizeSelect.value,10)||2;
+renderMemberSelect();
+renderTempTeams();
+renderAssignments();
+renderScheduleInputs();
+save();
+});
+});
+addMemberBtn.addEventListener('click', addMember);
+shuffleMembersBtn.addEventListener('click', shuffleMembers);
+balanceToggleBtn.addEventListener('click', ()=>{
+state.schedule.balanceOn = !state.schedule.balanceOn;
+balanceToggleBtn.textContent = `밸런스 배정 ${state.schedule.balanceOn ? 'ON' : 'OFF'}`;
+});
+addToATeamBtn.addEventListener('click', ()=>addToTeam('A'));
+addToBTeamBtn.addEventListener('click', ()=>addToTeam('B'));
+clearSelectionsBtn.addEventListener('click', clearSelections);
+addMatchBtn.addEventListener('click', addMatch);
+clearAssignmentsBtn.addEventListener('click', clearAssignments);
+gameSelect.addEventListener('change', ()=>{
+const id = parseInt(gameSelect.value||'0',10);
+updateWinnerOptions(id);
+});
+saveRecordBtn.addEventListener('click', saveRecord);
+deleteRecordBtn.addEventListener('click', deleteRecord);
+resetRecordsBtn.addEventListener('click', ()=>{
+if (!confirm('모든 기록을 삭제하시겠습니까?')) return;
+state.records = [];
+state.members.forEach(m=>{ m.win=0; m.lose=0; });
+renderRecords();
+renderAssignments();
+renderMembers();
+renderMemberStats();
+save();
+});
+exportCsvBtn.addEventListener('click', ()=>{
+const rows = [['matchId','court','teamA','teamB','score','winner','timestamp']];
+state.records.forEach(rc=>{
+rows.push([
+rc.id, rc.court,
+fmtTeam(rc.teamA), fmtTeam(rc.teamB),
+rc.score||'', rc.winner||'', new Date(rc.ts).toISOString()
+]);
+});
+const csv = rows.map(r=>r.map(v=>`"${String(v).replace(/"/g,'""')}"`).join(',')).join('\n');
+const blob = new Blob([csv], {type:'text/csv;charset=utf-8;'});
+const a = document.createElement('a');
+a.href = URL.createObjectURL(blob);
+a.download = `records_${qsId}.csv`;
+a.click();
+setTimeout(()=>URL.revokeObjectURL(a.href), 1000);
+});
+saveBtn.addEventListener('click', ()=>{
+save();
+alert('저장되었습니다.');
+});
+resetDataBtn.addEventListener('click', ()=>{
+if (!confirm('이 일정의 모든 데이터를 초기화할까요?')) return;
+safeStore.removeItem(storeKey);
+location.reload();
+});
+load();
+if (!state.schedule.date) state.schedule.date = new Date().toISOString().slice(0,10);
+renderAll();
+const savedTab = (safeStore.getItem('activeTab_'+qsId) || '1');
+setActiveTab(savedTab==='2' ? 2 : 1);
+})();
+</script>
+</body>
+</html>
